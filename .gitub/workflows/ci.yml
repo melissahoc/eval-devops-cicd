@@ -1,0 +1,24 @@
+name: CI - Test HTML
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier existence index.html
+        run: |
+          if [ ! -f index.html ]; then
+            echo "Erreur : index.html absent"
+            exit 1
+          fi
+
+      - name: Vérifier présence balise h1
+        run: |
+          grep "<h1>" index.html || exit 1
